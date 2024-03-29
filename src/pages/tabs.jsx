@@ -20,7 +20,7 @@ import {
   MDBTableBody,
   MDBDropdown, MDBDropdownMenu, MDBDropdownToggle, MDBDropdownItem
 } from 'mdb-react-ui-kit';
-
+import Swal from 'sweetalert2';
 import Sidebar from '../components/Sidebar';
 //import SiteInfo from './SiteInfo'
 
@@ -103,8 +103,28 @@ export default function Tabs() {
       const data = response.data.message.data.permissions;
       setPermissions(data);
       console.log(setPermissions);
+
+
     } catch (error) {
+     
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "Accessor ID Unavailable!"
+      });
       console.error(error);
+
+
     }
   };
 

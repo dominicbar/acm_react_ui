@@ -12,7 +12,7 @@ import {
   MDBModalFooter,
 } from 'mdb-react-ui-kit';
 
-
+import Swal from 'sweetalert2';
 // eslint-disable-next-line react/prop-types
 const Modal = ({showModal,onClose}) => {
 
@@ -100,11 +100,15 @@ const Modal = ({showModal,onClose}) => {
     event.preventDefault();
 
 
-//below api does not take null access point
   
     try {
       if (provider && !sub) {
-        alert('Missing sub value. Please provide a sub value.');
+        // alert('Missing sub value. Please provide a sub value.');
+        Swal.fire({
+          title: "Missing Sub Value!",
+          text: "Please provide a sub value!",
+          icon: "error"
+        });
         return; 
       }
 
@@ -153,13 +157,22 @@ const Modal = ({showModal,onClose}) => {
       });
   
       console.log('POST Response:', response.data);
-      alert('Accessor added successfully');
+      Swal.fire({
+        title: "Success!",
+        text: "Accessor Added Succesfully",
+        icon: "success"
+      });
 
       onClose()
     } catch (error) {
       console.log(error.response.data.message);
       console.error('POST Error:', error);
-      alert('Error creating Accessor. Please try again.');
+      // alert('Error creating Accessor. Please try again.');
+      Swal.fire({
+        title: "Error!",
+        text: "Error!Creating Accessor",
+        icon: "error"
+      });
     }
   };
 

@@ -13,6 +13,7 @@ import {
   MDBCheckbox,
 } from 'mdb-react-ui-kit';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default function UpdatePermissionsModal({displayModal,onClose,accessorId}) {
 
@@ -119,8 +120,14 @@ export default function UpdatePermissionsModal({displayModal,onClose,accessorId}
           'Content-Type': 'application/json',
         },
       });
-      
-      alert("updated");
+
+      Swal.fire({
+        title: "Success!",
+        text: "Permissions updated Succesfully",
+        icon: "success"
+      });
+    
+      // alert("updated");
       console.log('Update successful:', response.data);
       onClose()
     } catch (error) {

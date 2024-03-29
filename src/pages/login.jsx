@@ -4,7 +4,7 @@ import { MDBContainer, MDBInput,  MDBBtn,MDBRow, MDBCol } from 'mdb-react-ui-kit
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
-
+import Swal from 'sweetalert2';
 const LoginForm = () => {
   const [client_id, setClientId] = useState('')
   const [client_secret, setClientSecret] = useState('')
@@ -52,11 +52,41 @@ const LoginForm = () => {
       setToken(data.message);
   
       // Navigate to Page component with token
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Logged in successfully"
+      });
       navigate('/page');
       //navigate(`/organization/${data.organizationId}/${data.organizationName}`, { state: { token: data.message } });
       console.log('data sent', data.message);
     } catch (error) {
-      alert('Login failed. Please check your credentials.');
+      // alert('Login failed. Please check your credentials.');
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "Login Failed"
+      });
       console.error(error);
     }
   };
